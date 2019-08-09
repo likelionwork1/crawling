@@ -1,0 +1,9 @@
+<h1>Homes#navertv</h1>
+<p>Find me in app/views/homes/navertv.html.erb</p>
+
+<hr>
+<% @entry.each do |e| %>
+    순위: <%= e[0] %> <br>
+    제목: <a href="<%= e[2] %>" target="_blank"> <%= e[1] %></a> <br>
+    <hr>
+<% end %>

@@ -1,0 +1,9 @@
+<h1>Homes#daumcafe</h1>
+<p>Find me in app/views/homes/daumcafe.html.erb</p>
+
+<hr>
+<% @entry.each do |e| %>
+    제목: <%= e[0] %> <br>
+    링크: <%= e[1] %> <br>
+    <hr>
+<% end %>
