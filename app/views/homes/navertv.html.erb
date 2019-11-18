@@ -2,8 +2,8 @@
 <p>Find me in app/views/homes/navertv.html.erb</p>
 
 <hr>
+<%= @size %>
 <% @entry.each do |e| %>
     순위: <%= e[0] %> <br>
-    제목: <a href="<%= e[2] %>" target="_blank"> <%= e[1] %></a> <br>
-    <hr>
+    제목: <%= link_to "#{e[1]}", "#{e[2]}", target: "_blank" %> <hr>
 <% end %>

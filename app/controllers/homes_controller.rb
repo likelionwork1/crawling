@@ -32,25 +32,45 @@ class HomesController < ApplicationController
     
     browser.get 'https://tv.naver.com/' # 목표 URL 로드
     
+    #######################################
+    # 방법 1
+    #######################################
     content = browser.find_elements(xpath: "/html/body/div[2]/div[3]/div[2]/div[1]/div/div/ul/li") # 찾고자하는 대상 xpath방식으로 찾기
-    next_btn = browser.find_element(xpath: "/html/body/div[2]/div[3]/div[2]/div[1]/div/a[2]")
     
     @entry = Array.new
-    content.each_with_index do |item, key|
-        rank = key + 1 # 순위 뽑기
-        
-        if rank%5 == 0 # 5개 넘을 때마다 다음 랭크 버튼 누르게 하기
-          next_btn.click
-          sleep 0.2 # 로드 시간 sleep 하기
-        end
-        
-        title = item.find_element(tag_name: "tooltip").text # 순위 title 출력
-        link = item.find_element(tag_name: "a").attribute("href")
-        
-        @entry += [[rank, title, link]]
+    rank = 1
+    content.each do |c|
+      title = c.find_element(tag_name: "tooltip").attribute("title")
+      link = c.find_element(tag_name: "a").attribute("href")
+      
+      @entry += [[rank, title, link]]
+      rank += 1
     end
     
     browser.quit # browser 종료시키기
+    
+    ########################################
+    # # 방법 2
+    ########################################
+    # content = browser.find_elements(xpath: "/html/body/div[2]/div[3]/div[2]/div[1]/div/div/ul/li") # 찾고자하는 대상 xpath방식으로 찾기
+    # next_btn = browser.find_element(xpath: "/html/body/div[2]/div[3]/div[2]/div[1]/div/a[2]")
+    
+    # @entry = Array.new
+    # content.each_with_index do |item, key|
+    #     rank = key + 1 # 순위 뽑기
+        
+    #     if rank%5 == 0 # 5개 넘을 때마다 다음 랭크 버튼 누르게 하기
+    #       next_btn.click
+    #       sleep 0.2 # 로드 시간 sleep 하기
+    #     end
+        
+    #     title = item.find_element(tag_name: "tooltip").text # 순위 title 출력
+    #     link = item.find_element(tag_name: "a").attribute("href")
+        
+    #     @entry += [[rank, title, link]]
+    # end
+    
+    # browser.quit # browser 종료시키기
   end
   
   def navercafe
